@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact - Learning Web</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:Arial,sans-serif;background:linear-gradient(135deg,#ff66cc,#9933ff);color:white;display:flex;flex-direction:column;min-height:100vh;}
+/* Navbar */
+header{width:100%;background:rgba(0,0,0,0.2);padding:15px 20px;position:sticky;top:0;z-index:100;backdrop-filter:blur(5px);}
+.container{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;}
+.logo{font-size:28px;font-weight:bold;}
+nav ul{list-style:none;display:flex;gap:20px;}
+nav ul li a{text-decoration:none;color:white;font-weight:bold;padding:6px 12px;border-radius:5px;transition:0.3s;}
+nav ul li a:hover{background:rgba(255,255,255,0.2);}
+.hamburger{display:none;flex-direction:column;cursor:pointer;gap:5px;}
+.hamburger div{width:25px;height:3px;background-color:white;transition:0.3s;}
+@media(max-width:768px){
+  nav ul{position:absolute;top:65px;right:0;background:black;flex-direction:column;width:200px;padding:20px;gap:15px;display:none;border-radius:8px;}
+  nav ul.show{display:flex;}
+  .hamburger{display:flex;}
+}
+main{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:60px 20px;}
+main h1{font-size:48px;margin-bottom:20px;}
+main p{font-size:20px;max-width:700px;margin-bottom:40px;}
+.contact-buttons{display:flex;flex-wrap:wrap;justify-content:center;gap:15px;margin-bottom:30px;}
+.contact-buttons a{background:#38bdf8;color:#0f172a;padding:12px 20px;border-radius:25px;font-weight:bold;text-decoration:none;transition:0.3s;}
+.contact-buttons a:hover{background:#0ea5e9;transform:scale(1.05);}
+form{display:flex;flex-direction:column;gap:20px;width:100%;max-width:500px;margin:auto;}
+input,textarea{padding:12px;border-radius:10px;border:none;font-size:16px;resize:none;}
+button{padding:12px;border-radius:25px;border:none;background:#38bdf8;color:#0f172a;font-weight:bold;cursor:pointer;transition:0.3s;}
+button:hover{background:#0ea5e9;transform:scale(1.05);}
+#status{margin-top:20px;font-weight:bold;text-align:center;}
+@media(max-width:480px){main h1{font-size:32px;}main p{font-size:16px;}}
+</style>
+</head>
+<body>
+
+<header>
+<div class="container">
+  <div class="logo">Teaching Gallery</div>
+  <nav>
+    <div class="hamburger" onclick="toggleMenu()">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <ul id="nav-links">
+      <li><a href="home.html">Home</a></li>
+      <li><a href="learning.html">Learning</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+</div>
+</header>
+
+<main>
+<h1>Contact Me</h1>
+<p>Reach out via Email, Call, LinkedIn, or send a message using the form below.</p>
+
+<div class="contact-buttons">
+  <a href="mailto:bondevishal27@gmail.com"><i class="fas fa-envelope"></i> Email Me</a>
+  <a href="tel:9021449829"><i class="fas fa-phone"></i> Call Me</a>
+  <a href="https://www.linkedin.com/in/vishal-bonde-8704a8230" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+</div>
+
+<form id="contactForm" action="https://formsubmit.co/bondevishal27@gmail.com" method="POST">
+  <input type="hidden" name="_captcha" value="false">
+  <input type="hidden" name="_subject" value="New Contact Form Submission">
+  <input type="hidden" name="_template" value="table">
+
+  <input type="text" name="name" placeholder="Your Name" required>
+  <input type="email" name="email" placeholder="Your Email" required>
+  <textarea name="message" placeholder="Your Message" required></textarea>
+  <button type="submit">Send Message</button>
+</form>
+
+<p id="status"></p>
+</main>
+
+<script>
+function toggleMenu(){document.getElementById('nav-links').classList.toggle('show');}
+
+const form=document.getElementById('contactForm');
+const status=document.getElementById('status');
+form.addEventListener('submit', function(e){
+  e.preventDefault();
+  const formData=new FormData(form);
+  fetch(form.action,{
+    method:form.method,
+    body:formData,
+    headers:{'Accept':'application/json'}
+  })
+  .then(response=>{
+    if(response.ok){
+      status.textContent="Message sent successfully!";
+      status.style.color="lightgreen";
+      form.reset();
+    } else {
+      response.json().then(data=>{
+        if(Object.hasOwn(data,'errors')){
+          status.textContent=data["errors"].map(error=>error["message"]).join(", ");
+        } else {status.textContent="Failed to send message!";}
+        status.style.color="red";
+      })
+    }
+  })
+  .catch(error=>{
+    status.textContent="Failed to send message!";
+    status.style.color="red";
+  });
+});
+</script>
+</body>
+</html>

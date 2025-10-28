@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Learning Web</title>
+<style>
+  /* Reset */
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    color: white;
+    background: linear-gradient(135deg, #ff66cc, #9933ff); /* Romantic purple gradient */
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Header & Navbar */
+  header {
+    width: 100%;
+    background: rgba(0,0,0,0.2);
+    padding: 15px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(5px);
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo {
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+  }
+
+  nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    padding: 6px 12px;
+    border-radius: 5px;
+    transition: 0.3s;
+  }
+
+  nav ul li a:hover {
+    background: rgba(255,255,255,0.2);
+  }
+
+  /* Hamburger */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 5px;
+  }
+
+  .hamburger div {
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    transition: 0.3s;
+  }
+
+  /* Main Section */
+  main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 60px 20px;
+  }
+
+  main h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+  }
+
+  main p {
+    font-size: 20px;
+    max-width: 700px;
+    margin-bottom: 40px;
+  }
+
+  .book-icon {
+    font-size: 100px;
+    margin-top: 20px;
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+  }
+
+  footer {
+    text-align: center;
+    padding: 15px 0;
+    background: rgba(0,0,0,0.2);
+    font-size: 14px;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    nav ul {
+      position: absolute;
+      top: 65px;
+      right: 0;
+      background: #000; /* Black background for mobile menu */
+      flex-direction: column;
+      width: 200px;
+      padding: 20px;
+      gap: 15px;
+      display: none;
+      border-radius: 8px 0 0 8px;
+    }
+
+    nav ul.show {
+      display: flex;
+    }
+
+    nav ul li a {
+      color: #fff;
+    }
+    nav ul li a:hover {
+      color: #b388ff;
+    }
+
+    .hamburger {
+      display: flex;
+    }
+  }
+
+  @media (max-width: 480px) {
+    main h1 { font-size: 32px; }
+    main p { font-size: 16px; }
+    .book-icon { font-size: 80px; }
+  }
+
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <div class="logo">Teaching Gallery</div>
+    <nav>
+      <div class="hamburger" onclick="toggleMenu()">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <ul id="nav-links">
+        <li><a href="home.html">Home</a></li>
+        <li><a href="learning.html">Learning</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <h1>Welcome Students!</h1>
+  <p>Explore tutorials, examples, and learning resources to improve your web development and programming skills easily. Start learning today!</p>
+  <div class="book-icon">📚</div>
+</main>
+
+<footer>
+  © 2025 Vishal Bonde | Contact: bondevishal27@gmail.com
+</footer>
+
+<script>
+  function toggleMenu() {
+    document.getElementById('nav-links').classList.toggle('show');
+  }
+</script>
+
+</body>
+</html>
